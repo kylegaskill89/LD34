@@ -3,6 +3,7 @@ using System.Collections;
 
 public class GameManager : MonoBehaviour
 {
+    public static GameManager Instance;
 
 	public float currentScore = 100.0f;
 	public float minScore = 0.0f;
@@ -13,7 +14,7 @@ public class GameManager : MonoBehaviour
 
 	void Start ()
     {
-	
+        Instance = this;
 	}
 
 	// Update is called once per frame
@@ -38,6 +39,8 @@ public class GameManager : MonoBehaviour
 
     void OnGUI ()
     {
+        GUILayout.Label("Points: " + currentScore);
+
         if(gameOver)
         { 
 

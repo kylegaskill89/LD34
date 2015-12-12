@@ -17,8 +17,13 @@ public class DebugControls : MonoBehaviour {
 	{
 		if (Input.GetKeyDown (KeyCode.KeypadMinus))
 		{
-
+            GameManager.Instance.currentScore -= 10;
 		}
+
+        if (Input.GetKeyDown (KeyCode.KeypadPlus))
+        {
+            GameManager.Instance.currentScore += 10;
+        }
 	}
 
 }
