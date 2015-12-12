@@ -2,7 +2,8 @@
 using System.Collections;
 
 public class DebugControls : MonoBehaviour {
-		
+
+	
 
 	// Use this for initialization
 	void Start () 
@@ -12,8 +13,12 @@ public class DebugControls : MonoBehaviour {
 
 	
 	// Update is called once per frame
-	void Update () {
-	
-	
+	void Update ()
+	{
+		if (Input.GetKeyDown (KeyCode.KeypadMinus))
+		{
+
+		}
 	}
+
 }

@@ -34,6 +34,11 @@ public class TaskHandler : MonoBehaviour {
 			}
 		}
 
+        if (!canFinish && Input.GetButtonDown("Fire2"))
+        {
+            taskFailed();
+        }
+
 	}
 
 	void Finish ()
@@ -41,4 +46,10 @@ public class TaskHandler : MonoBehaviour {
 		buildLevel = 0;
 		Debug.Log ("Job's done!");
 	}
+
+    void taskFailed ()
+    {
+        buildLevel = 0;
+        Debug.Log("Failed");
+    }
 }
