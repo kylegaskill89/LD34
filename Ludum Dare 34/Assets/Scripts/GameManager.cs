@@ -7,6 +7,7 @@ public class GameManager : MonoBehaviour
 
 	public float currentScore = 100.0f;
 	public float minScore = 0.0f;
+    public float maxScore = 200.0f;
 
     private bool gameOver = false;
 
@@ -26,6 +27,11 @@ public class GameManager : MonoBehaviour
 		{
 			gameOver = true;
 		}
+
+        if (currentScore >= maxScore)
+        {
+            currentScore = maxScore;
+        }
 
         if (gameOver)
         {

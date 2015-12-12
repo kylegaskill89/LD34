@@ -10,12 +10,21 @@ public class TaskHandler : MonoBehaviour {
     public float failurePoints = 5.0f;
 
 	public bool canFinish = false;
+
+    public bool canBuild = false;
+
+
+
+    void Start ()
+    {
+
+    }
 	
 
 	// Update is called once per frame
 	void Update ()
 	{
-		if(Input.GetButtonDown("Fire1"))
+		if(canBuild && Input.GetButtonDown("Fire1"))
 		{
 			buildLevel += 1;
 		}
@@ -37,7 +46,7 @@ public class TaskHandler : MonoBehaviour {
 			}
 		}
 
-        if (!canFinish && Input.GetButtonDown("Fire2"))
+        if (!canFinish && canBuild && Input.GetButtonDown("Fire2"))
         {
             taskFailed();
         }
@@ -48,6 +57,7 @@ public class TaskHandler : MonoBehaviour {
 	{
 		buildLevel = 0;
         GameManager.Instance.currentScore += successPoints;
+        Destroy (gameObject);
 		Debug.Log ("Job's done!");
 	}
 
@@ -56,5 +66,22 @@ public class TaskHandler : MonoBehaviour {
         buildLevel = 0;
         GameManager.Instance.currentScore -= failurePoints;
         Debug.Log("Failed");
+    }
+
+    void OnGUI ()
+    {
+        GUILayout.Label("");
+        GUILayout.Label("");
+        GUILayout.Label ("Build Level: " + buildLevel);
+    }
+
+    void OnTriggerEnter(Collider other)
+    {
+        canBuild = true;
+    }
+
+    void OnTriggerExit(Collider other)
+    {
+        canBuild = false;
     }
 }
