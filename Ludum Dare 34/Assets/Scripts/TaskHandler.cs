@@ -7,19 +7,14 @@ public class TaskHandler : MonoBehaviour {
 	public int buildFinish = 0;
 
 	public bool canFinish = false;
+	
 
-	// Use this for initialization
-	void Start () {
-	
-	}
-	
 	// Update is called once per frame
 	void Update ()
 	{
 		if(Input.GetButtonDown("Fire1"))
 		{
 			buildLevel += 1;
-			Debug.Log (buildLevel);
 		}
 
 		if (buildLevel == buildFinish) 
@@ -35,9 +30,15 @@ public class TaskHandler : MonoBehaviour {
 		{
 			if(Input.GetButtonDown ("Fire2"))
 			{
-				buildLevel = 0;
+				Finish();
 			}
 		}
 
+	}
+
+	void Finish ()
+	{
+		buildLevel = 0;
+		Debug.Log ("Job's done!");
 	}
 }
