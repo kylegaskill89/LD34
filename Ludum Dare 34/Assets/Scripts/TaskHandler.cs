@@ -3,6 +3,8 @@ using System.Collections;
 
 public class TaskHandler : MonoBehaviour {
 
+    public GameObject task;
+
 	public int buildLevel = 0;
 	public int buildFinish = 0;
 
@@ -64,7 +66,6 @@ public class TaskHandler : MonoBehaviour {
         GameManager.Instance.currentScore += successPoints;
 		Debug.Log ("Job's done!");
         Destroy(gameObject);
-        CanBuild.Instance.inTrigger = false;
 	}
 
     void taskFailed ()
@@ -72,7 +73,6 @@ public class TaskHandler : MonoBehaviour {
         Destroy(gameObject);
         GameManager.Instance.currentScore -= failurePoints;
         Debug.Log("Failed");
-        CanBuild.Instance.inTrigger = false;
     }
 
 
@@ -85,6 +85,14 @@ public class TaskHandler : MonoBehaviour {
             GUILayout.Label("Build Level: " + buildLevel);
         }
 
+    }
+
+    void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.tag == "Build")
+        {
+            Instantiate(task, transform.position + new Vector3 (14f, 0, 0), Quaternion.identity);
+        }
     }
 
     void OnTriggerStay(Collider other)
