@@ -9,6 +9,8 @@ public class ConvBelt : MonoBehaviour {
     public float maxSpeedUp = .07f;
     public float minSpeedUp = .02f;
 
+    public float maxSpeed = 7;
+
 	// Use this for initialization
 	void Start ()
     {
@@ -24,7 +26,10 @@ public class ConvBelt : MonoBehaviour {
 
     IEnumerator speedUp()
     {
-        yield return new WaitForSeconds(30);
-        Speed += (Random.Range(minSpeedUp, maxSpeedUp));
+        while (Speed > maxSpeed)
+        {
+            yield return new WaitForSeconds(15);
+            Speed += (Random.Range(minSpeedUp, maxSpeedUp));
+        }
     }
 }

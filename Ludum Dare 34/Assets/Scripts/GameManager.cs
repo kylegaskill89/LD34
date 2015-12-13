@@ -5,16 +5,17 @@ public class GameManager : MonoBehaviour {
 
     public static GameManager Instance;
 
-    public float currentScore = 100.0f;
-    public float minScore = 0.0f;
-    public float maxScore = 200.0f;
+    public float currentScore = 100f;
+    public float minScore = 0f;
+    public static float highScore = 0.0f;
 
-    private bool gameOver = false;
+    public bool gameOver = false;
 
 	// Use this for initialization
 	void Start () 
     {
         Instance = this;
+        loadHighScore();
 	}
 	
 	// Update is called once per frame
@@ -22,21 +23,29 @@ public class GameManager : MonoBehaviour {
     {
         if (currentScore <= minScore)
         {
-            gameOver = true;
+            failState();
         }
 
-        if (currentScore >= maxScore)
+        if (currentScore > highScore)
         {
-            currentScore = maxScore;
+            highScore = currentScore;
         }
 
         if (gameOver)
         {
-            if(Input.anyKeyDown)
-            {
-                Application.LoadLevel(Application.loadedLevel);
-            }
+            Time.timeScale = 0;
+        } 
+        else
+        {
+            Time.timeScale = 1;
+        }
 
+
+        // DEBUG
+
+        if (Input.GetKeyDown(KeyCode.KeypadMinus))
+        {
+            currentScore -= 50;
         }
 
 
@@ -44,11 +53,42 @@ public class GameManager : MonoBehaviour {
 
     void OnGUI ()
     {
-        GUILayout.Label("Points: " + currentScore);
+        int Score = (int)currentScore;
+        int currentHighScore = (int)highScore;
+        GUILayout.Label("Points: " + Score.ToString());
+        GUILayout.Label("High Score: " + currentHighScore.ToString());
 
         if (gameOver)
         {
             GUILayout.Label ("You have been sent home! Press any key to restart.");
         }
+    }
+
+    void failState()
+    {
+        gameOver = true;
+        
+        if(Input.anyKeyDown)
+        {
+            Application.LoadLevel(Application.loadedLevel);
+        }
+
+       saveHighScore();
+    }
+
+    void OnApplicationExit()
+    {
+        saveHighScore();
+    }
+
+    void saveHighScore()
+    {
+        PlayerPrefs.SetInt("Highscore", (int)highScore);
+        PlayerPrefs.Save();
+    }
+
+    void loadHighScore()
+    {
+        highScore = PlayerPrefs.GetInt("Highscore");
     }
 }
