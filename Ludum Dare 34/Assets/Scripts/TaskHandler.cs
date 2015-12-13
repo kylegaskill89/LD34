@@ -51,6 +51,11 @@ public class TaskHandler : MonoBehaviour {
             taskFailed();
         }
 
+        if (buildLevel > buildFinish)
+        {
+            taskFailed();
+        }
+
 	}
 
 	void Finish ()
@@ -63,19 +68,23 @@ public class TaskHandler : MonoBehaviour {
 
     void taskFailed ()
     {
-        buildLevel = 0;
+        Destroy(gameObject);
         GameManager.Instance.currentScore -= failurePoints;
         Debug.Log("Failed");
     }
 
     void OnGUI ()
     {
-        GUILayout.Label("");
-        GUILayout.Label("");
-        GUILayout.Label ("Build Level: " + buildLevel);
+        if (canBuild)
+        {
+            GUILayout.Label("");
+            GUILayout.Label("");
+            GUILayout.Label("Build Level: " + buildLevel);
+        }
+
     }
 
-    void OnTriggerEnter(Collider other)
+    void OnTriggerStay(Collider other)
     {
         canBuild = true;
     }
