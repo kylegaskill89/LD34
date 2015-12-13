@@ -1,20 +1,16 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class ConvBelt : MonoBehaviour {
-
-    public static ConvBelt Instance;
-    
-    public float Speed = 0.0f;
+public class Move : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-        Instance = this;
+	
 	}
 	
 	// Update is called once per frame
 	void Update ()
     {
-   
+        transform.Translate(ConvBelt.Instance.Speed * Time.deltaTime * -1, 0, 0);     
 	}
 }
