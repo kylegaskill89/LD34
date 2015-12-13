@@ -4,24 +4,33 @@ using System.Collections;
 public class TaskHandler : MonoBehaviour {
 
     public GameObject task;
+    public GameObject taskText;
 
 	public int buildLevel = 0;
-	public int buildFinish = 0;
+	public int minFinish = 1;
+    public int maxFinish = 10;
 
-    public float successPoints = 10;
-    public float failurePoints = 5;
+    public int finishLevel;
+
+    public float successPoints = 10f;
+    public float failurePoints = 5f;
 
 	public bool canFinish = false;
 
     public bool canBuild = false;
+        
 
 
-
-    void Start ()
+    void Awake ()
     {
+        finishLevel = (Random.Range(minFinish, maxFinish));
 
     }
 	
+    void Start ()
+    {
+ 
+    }
 
 	// Update is called once per frame
 	void Update ()
@@ -32,7 +41,7 @@ public class TaskHandler : MonoBehaviour {
 			buildLevel += 1;
 		}
 
-		if (buildLevel == buildFinish) 
+		if (buildLevel == finishLevel) 
 		{
 			canFinish = true;
 		}
@@ -54,11 +63,12 @@ public class TaskHandler : MonoBehaviour {
             taskFailed();
         }
 
-        if (buildLevel > buildFinish)
+        if (buildLevel > finishLevel)
         {
             taskFailed();
         }
 
+        taskText.GetComponent<TextMesh>().text = ((finishLevel - buildLevel).ToString());
 	}
 
 	void Finish ()
@@ -82,7 +92,6 @@ public class TaskHandler : MonoBehaviour {
         {
             GUILayout.Label("");
             GUILayout.Label("");
-            GUILayout.Label("Build Level: " + buildLevel);
             GUILayout.Label("Speed: " + ConvBelt.Instance.Speed);
         }
 

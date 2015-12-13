@@ -60,6 +60,7 @@ public class GameManager : MonoBehaviour {
 
         if (gameOver)
         {
+            GUILayout.Label ("");
             GUILayout.Label ("You have been sent home! Press any key to restart.");
         }
     }
