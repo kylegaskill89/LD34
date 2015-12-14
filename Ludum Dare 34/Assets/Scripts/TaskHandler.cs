@@ -6,6 +6,7 @@ public class TaskHandler : MonoBehaviour {
     public GameObject task;
     public GameObject taskText;
     public GameObject wrapppedGift;
+    public GameObject explosion;
 
 	public int buildLevel = 0;
 	public int minFinish = 1;
@@ -82,6 +83,7 @@ public class TaskHandler : MonoBehaviour {
 
     void taskFailed ()
     {
+        Instantiate(explosion, transform.position, Quaternion.identity);
         Destroy(gameObject);
         GameManager.Instance.currentScore -= failurePoints;
         Debug.Log("Failed");
@@ -103,7 +105,7 @@ public class TaskHandler : MonoBehaviour {
     {
         if (other.gameObject.tag == "Build")
         {
-            Instantiate(task, transform.position + new Vector3 (14f, 0, 0), Quaternion.identity);
+            Instantiate(task, transform.position + new Vector3 (21f, 0, 0), Quaternion.identity);
         }
     }
 
