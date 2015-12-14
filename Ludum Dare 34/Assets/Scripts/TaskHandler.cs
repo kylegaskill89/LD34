@@ -1,10 +1,11 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 
 public class TaskHandler : MonoBehaviour {
 
     public GameObject task;
     public GameObject taskText;
+    public GameObject wrapppedGift;
 
 	public int buildLevel = 0;
 	public int minFinish = 1;
@@ -75,6 +76,7 @@ public class TaskHandler : MonoBehaviour {
 	{
         GameManager.Instance.currentScore += successPoints;
 		Debug.Log ("Job's done!");
+        Instantiate(wrapppedGift, transform.position, Quaternion.identity);
         Destroy(gameObject);
 	}
 
