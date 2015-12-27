@@ -65,7 +65,7 @@ public class TaskHandler : MonoBehaviour {
             taskFailed();
         }
 
-        if (buildLevel > finishLevel)
+        if (buildLevel > finishLevel && canBuild)
         {
             taskFailed();
         }
@@ -77,15 +77,18 @@ public class TaskHandler : MonoBehaviour {
 	{
         GameManager.Instance.currentScore += successPoints;
 		Debug.Log ("Job's done!");
-        Instantiate(wrapppedGift, transform.position, Quaternion.identity);
+        GameObject successfulGift = Instantiate(wrapppedGift, transform.position, Quaternion.identity) as GameObject;
+        successfulGift.name = wrapppedGift.name;
         Destroy(gameObject);
 	}
 
     void taskFailed ()
     {
         Instantiate(explosion, transform.position, Quaternion.identity);
-        Destroy(gameObject);
         GameManager.Instance.currentScore -= failurePoints;
+        Instantiate(task, transform.position + new Vector3 (21f, 0, 0), Quaternion.identity);
+        canBuild = false;
+        Destroy(gameObject);
         Debug.Log("Failed");
     }
 
@@ -96,16 +99,16 @@ public class TaskHandler : MonoBehaviour {
         {
             GUILayout.Label("");
             GUILayout.Label("");
-            GUILayout.Label("Speed: " + ConvBelt.Instance.Speed);
         }
 
     }
 
-    void OnTriggerEnter(Collider other)
+    void OnTriggerExit(Collider other)
     {
         if (other.gameObject.tag == "Build")
         {
-            Instantiate(task, transform.position + new Vector3 (21f, 0, 0), Quaternion.identity);
+            GameObject createdTask = Instantiate(task, transform.position + new Vector3 (21f, 0, 0), Quaternion.identity) as GameObject;
+            createdTask.name = task.name;
         }
     }
 

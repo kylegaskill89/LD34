@@ -18,10 +18,11 @@ public class ConvBelt : MonoBehaviour {
         StartCoroutine(speedUp());
 	}
 	
-	// Update is called once per frame
-	void Update ()
+	void OnGUI ()
     {
-
+        GUILayout.Label("");
+        GUILayout.Label("");
+        GUILayout.Label("Speed: " + ConvBelt.Instance.Speed);
 	}
 
     IEnumerator speedUp()
